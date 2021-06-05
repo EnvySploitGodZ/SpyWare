@@ -8,7 +8,7 @@
               
 ]]--
 
-local dark_theme = {
+_G.CustomTheme = {
     Tab_Color = Color3.fromRGB(31, 32, 33),
     Tab_Text_Color = Color3.fromRGB(255, 255, 255),
     Description_Color = Color3.fromRGB(31, 32, 33),
