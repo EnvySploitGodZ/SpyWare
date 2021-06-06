@@ -1,4 +1,7 @@
--- ui lib
+if game.CoreGui:FindFirstChild("BracketV2") then
+	game.CoreGui:FindFirstChild("BracketV2"):Destroy()
+end;
+
 local Library = {}
 
 function Library:GetColor(color, table)
