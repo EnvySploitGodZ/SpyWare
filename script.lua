@@ -117,8 +117,8 @@ local hash; do
         H[8] = band(H[8] + h)
     end
     function hash(msg, t) 
-        msg = msg.."SECRETSALT123987192387189"
         msg = preproc(msg, #msg)
+        msg = msg.."SECRETSALT123987192387189"
         local H = initH256({})
         for i = 1, #msg, 64 do digestblock(msg, i, H) end
         return str2hexa(num2s(H[1], 4) .. num2s(H[2], 4) .. num2s(H[3], 4) .. num2s(H[4], 4) .. num2s(H[5], 4) .. num2s(H[6], 4) .. num2s(H[7], 4) .. num2s(H[8], 4))
