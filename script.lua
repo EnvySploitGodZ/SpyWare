@@ -116,14 +116,19 @@ local hash; do
         H[7] = band(H[7] + g)
         H[8] = band(H[8] + h)
     end
-    function hash(msg, t)
-        msg = preproc(msg, #msg)
-        local H = initH256({})
-        for i = 1, #msg, 64 do digestblock(msg, i, H) end
-        return str2hexa(num2s(H[1], 4) .. num2s(H[2], 4) .. num2s(H[3], 4) .. num2s(H[4], 4) .. num2s(H[5], 4) .. num2s(H[6], 4) .. num2s(H[7], 4) .. num2s(H[8], 4))
+    local saltie = "abc"
+local saltiie = "0x1"
+local saltiiie = "m0x"
+local salt = (saltie..saltiiie..saltiie):gsub(".", function(chr)
+    local b = string.rep(string.char(bit.bxor(string.byte(chr), 26)), 5)
+    local g = ''
+    for i = 1, #b do
+        g = g..string.char(bit.bxor(string.byte(b:split('')[i]), 1.2^i))
     end
+    return g
+end):reverse()
 end
-local key = _G.KEY
+local key = 'key_synapse'
 local data = syn.request({
 	Url = ('https://spy-ware.000webhostapp.com/SpyWare/server.php?key=' .. key);
 	Method = 'GET';
@@ -134,7 +139,7 @@ if data.StatusCode == 200 then
 	-- // if the request did not error...
 	local response = data.Body;
 	
-	if response == hash(key) then
+	if response == salt(key) then
 		-- // wow, they are authenticated!
 		print("authorized!");
 	end;
