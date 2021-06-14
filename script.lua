@@ -1,15 +1,17 @@
 -- // define alias for http function
 
-local http_request = function(...)
-    
-    return {
-        StatusCode = 200,
-        Body = "Unauthorized!!!"
-        
-    }
-    
-    
+local http_request = http_request;
+if syn then
+	http_request = syn.request
+elseif SENTINEL_V2 then
+	function http_request(tb)
+		return {
+			StatusCode = 200;
+			Body = request(tb.Url, tb.Method, (tb.Body or ''))
+		}
+	end
 end
+
 if (not http_request) then
 	return game:GetService('Players').LocalPlayer:Kick('Unable to find proper request function')
 end;
@@ -121,7 +123,7 @@ local hash; do
         return str2hexa(num2s(H[1], 4) .. num2s(H[2], 4) .. num2s(H[3], 4) .. num2s(H[4], 4) .. num2s(H[5], 4) .. num2s(H[6], 4) .. num2s(H[7], 4) .. num2s(H[8], 4))
     end
 end
-local key = 'key_synapse'
+local key = _G.KEY
 local data = syn.request({
 	Url = ('https://spy-ware.000webhostapp.com/SpyWare/server.php?key=' .. key);
 	Method = 'GET';
