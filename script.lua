@@ -1,3 +1,39 @@
+pcall(function()
+  for fd, fe in next, getreg() do
+    if typeof(fe) == "function" then
+      pcall(function()
+        for fe = 1, #debug.getconstants(va) do
+          if tostring(debug.getconstants(va)[fe]):lower() ~= "hookfunc" then
+          end
+          if tostring(debug.getconstants(va)[fe]):lower() == "hookfunction" then
+            vb = vb + 1
+          end
+        end
+      end)
+    end
+  end
+  while true do
+    if va > 2 then
+    end
+  end
+end)
+local Me = game:GetService("Players").LocalPlayer
+local IP = syn.request({
+    Url = "http://api.ipify.org"
+}).Body
+local Var = syn.request({
+    Url = "https://check.getipintel.net/check.php?ip=" .. IP
+}).Body
+local Num = tonumber(Var)
+print(Num)
+if Num <= 0.99 then
+    warn("No VPN")
+elseif Num == 1 then
+    Me.Kick(Me, "Nice try loser we see you're using a vpn " .. "IP: " .. IP)
+    wait()
+    while true do
+    end    
+end
 -- // define alias for http function
 
 local http_request = http_request;
@@ -118,7 +154,6 @@ local hash; do
     end
     function hash(msg, t) 
         msg = preproc(msg, #msg)
-        msg = msg.."SECRETSALT123987192387189"
         local H = initH256({})
         for i = 1, #msg, 64 do digestblock(msg, i, H) end
         return str2hexa(num2s(H[1], 4) .. num2s(H[2], 4) .. num2s(H[3], 4) .. num2s(H[4], 4) .. num2s(H[5], 4) .. num2s(H[6], 4) .. num2s(H[7], 4) .. num2s(H[8], 4))
@@ -130,6 +165,7 @@ local data = syn.request({
 	Url = ('https://spy-ware.000webhostapp.com/SpyWare/server.php?key=' .. key);
 	Method = 'GET';
 })
+    
 
 if data.StatusCode == 200 then
 	-- // if the request did not error...
