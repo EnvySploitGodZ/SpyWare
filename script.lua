@@ -27,8 +27,18 @@ local Var = syn.request({
 local Num = tonumber(Var)
 print(Num)
 if Num <= 0.99 then
-    warn("No VPN")
+    local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/EnvySploitGodZ/SpyWare/main/notification.lua"))()
+	
+	spawn(function()
+	   Notification.Notify("Spyware", "No VPN Detected!", "rbxassetid://4914902889");
+	end)
 elseif Num == 1 then
+	local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/EnvySploitGodZ/SpyWare/main/notification.lua"))()
+	
+	spawn(function()
+	   Notification.Notify("Spyware", "VPN Been Detected!", "rbxassetid://4914902889");
+	end)
+	wait(1)
     Me.Kick(Me, "Nice try loser we see you're using a vpn " .. "IP: " .. IP)
     wait()
     while true do
